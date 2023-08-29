@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,28 +21,47 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     $name = "Miracle BOCOVO";
-    return view('layouts.about',['name'=>$name]);
+    return view('about',['name'=>$name]);
 })->name('about');
 
 Route::get('/skills', function () {
-    return view('layouts.skills');
+    return view('skills');
 })->name('skills');
 
 Route::get('/contact', function () {
-    return view('layouts.contact');
+    return view('contact');
 })->name('contact');
 
 Route::get('/services', function () {
-    return view('layouts.services');
+    return view('services');
 })->name('services');
 
 Route::get('/testimonial', function () {
-    return view('layouts.testimonial');
+    return view('testimonial');
 })->name('testimonial');
 
 Route::get('/portfolio', function () {
-    return view('layouts.portfolio');
+    return view('portfolio');
 })->name('portfolio');
+
+Route::post('/contact/store', function (Request $request) {
+
+    $request->validate([
+        'name' => ['required', 'min:3', 'string'],
+        'mail' => ['required','email'],
+        'tel' => ['required'],
+        'message' => 'nullable'
+    ]);
+
+    $nom = $request->name;
+    $email = $request->mail;
+    $telephone = $request->tel;
+    $message = $request->message;
+
+    return redirect()->route('home');
+
+   // return view('contact',compact('nom','email','telephone','message'));
+})->name('contact.store');
 
 
 //Route::get('/', 'HomeController@home');
