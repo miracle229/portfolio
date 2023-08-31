@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Models\Contact;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,20 +49,29 @@ Route::post('/contact/store', function (Request $request) {
 
     $request->validate([
         'name' => ['required', 'min:3', 'string'],
-        'mail' => ['required','email'],
+        'mail' => ['required','email','unique'],
         'tel' => ['required'],
         'message' => 'nullable'
     ]);
 
-    $nom = $request->name;
-    $email = $request->mail;
-    $telephone = $request->tel;
-    $message = $request->message;
+    $contact = Contact::create([
+        'name'=>$request->name,
+        'email'=>$request->mail,
+        'phone'=>$request->tel,
+        'message'=>$request->message
+    ]);
 
-    return redirect()->route('home');
+    return view('contact', compact('contact'));
+    //return redirect()->route('home');
 
    // return view('contact',compact('nom','email','telephone','message'));
 })->name('contact.store');
+
+Route::get('/contact/list', function(){
+    $contacts = Contact::all();
+    return view('contacts_list', compact('contacts'));
+})->name('contact.list');
+
 
 
 //Route::get('/', 'HomeController@home');
