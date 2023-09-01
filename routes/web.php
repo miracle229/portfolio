@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Ad_testimonial;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +38,6 @@ Route::get('/services', function () {
     return view('services');
 })->name('services');
 
-Route::get('/testimonial', function () {
-    return view('testimonial');
-})->name('testimonial');
-
 Route::get('/portfolio', function () {
     return view('portfolio');
 })->name('portfolio');
@@ -73,5 +70,50 @@ Route::get('/contact/list', function(){
 })->name('contact.list');
 
 
+
+
+
+
+
+Route::get('/ad_testimonial', function () {
+    return view('ad_testimonial');
+})->name('ad_testimonial');
+
+
+Route::post('/ad_testimonial/store', function (Request $request) {
+
+    $request->validate([
+        'auteur' => ['required', 'min:3', 'string'],
+        'poste' => ['nullable', 'min:4', 'string'],
+        'commentaires' => ['required','string'],
+        'image' => 'nullable|file|image'
+    ]);
+
+    $file_path = $request->image->store('public');
+
+    $ad_testimonial = Ad_testimonial::create([
+        'auteur'=>$request->auteur,
+        'poste'=>$request->poste,
+        'commentaires'=>$request->commentaires,
+        'image'=>$file_path
+    ]);
+
+    return redirect()->route('testimonial');
+    //return view('ad_testimonial', compact('ad_testimonial'));
+    //return redirect()->route('home');
+   // return view('contact',compact('nom','email','telephone','message'));
+})->name('ad_testimonial.store');
+
+Route::get('/testimonial', function () {
+    $ad_testimonials = Ad_testimonial::all();
+    return view('testimonial', compact('ad_testimonials'));
+})->name('testimonial');
+
+
+Route::get('/ad_testimonial/view/{id}', function($id, $type){
+
+    $ad_testimonial =  Contact::where('id',$id)->first();
+    return  view('ad_testimonial_view', compact('ad_testimonial'));
+})->name('ad_testimonial.view');
 
 //Route::get('/', 'HomeController@home');

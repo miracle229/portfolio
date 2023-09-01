@@ -9,30 +9,34 @@
         </div>
 
         <div class="row ro-clo">
-            <div data-anijs="if: scroll, on: window, do: bounceInLeft animated, before: scrollReveal" class="col-12  col-md-6 col-lg-4">
-                <div class="shado-2 card-b">
-                    <p>Classic Aqua water purify is good.Because its cure our purify that is called  health and gives good life. I suggest classic aqua for its best purify of water</p>
+            @foreach ($ad_testimonials as $item)
+                <div data-anijs="if: scroll, on: window, do: bounceInLeft animated, before: scrollReveal" class="col-12  col-md-6 col-lg-4">
+                    {{-- <a href="{{ route('ad') }}"></a> --}}
+                    <div class="shado-2 card-b">
+                        <p>{{ $item->commentaires }}</p>
+                    </div>
+                    <div class="cust-det row">
+                        <div class="col-sm-3 col-3 img-circl">
+                            <img alt="" src="{{ Storage::url($item->image) }}">
+                        </div>
+                        <div class="col-sm-5 col-5 an-mtc no-padding">
+                            <b>{{ $item->auteur }}</b>
+                            <p>( {{ $item->poste }} )</p>
+                        </div>
+                        <div class="col-sm-4 col-4 star-par">
+                            <ul class="stars">
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="cust-det row">
-                    <div class="col-sm-3 col-3 img-circl">
-                        <img alt="" src="{{ url('assets/images/testimonial/member-01.jpg') }}">
-                    </div>
-                    <div class="col-sm-5 col-5 an-mtc no-padding">
-                        <b>Sarath Ali</b>
-                        <p>(Sales Agent)</p>
-                    </div>
-                    <div class="col-sm-4 col-4 star-par">
-                        <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12  col-md-6 col-lg-4">
+            @endforeach
+            
+            {{-- <div class="col-12  col-md-6 col-lg-4">
                 <div class="shado-2 card-b">
                     <p> have use this product at my home last 1 and half year of this. This product quality is good.Its good quality product for use it can improve water Quality.
                     </p>
@@ -78,7 +82,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
     </div>
