@@ -20,6 +20,9 @@
                         <td>
                             Message
                         </td>
+                        <td colspan="3">
+                            Options
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +39,21 @@
                             </td>
                             <td>
                                 {{ $contact->message }}
+                            </td>
+                            <td>
+                                <a  class=" btn btn-primary" href="{{ route('contact.create', ['contact'=>$contact->id]) }}"> Voir</a>
+    
+                                {{-- <a  class=" btn btn-primary" href="{{ route('contact.view', $contact->id ) }}"> Voir</a> --}}
+                            </td>
+                            <td>
+                                <a  class=" btn btn-success" href="{{ route('contact.create', ['contact'=>$contact->id]) }}"> Modifier</a>
+    
+                                {{-- <a  class=" btn btn-primary" href="{{ route('contact.view', $contact->id ) }}"> Voir</a> --}}
+                            </td>
+                            <td>
+                                <a  class=" btn btn-danger" href="{{ route('contact.create', ['contact'=>$contact->id]) }}"> Supprimer</a>
+    
+                                {{-- <a  class=" btn btn-primary" href="{{ route('contact.view', $contact->id ) }}"> Voir</a> --}}
                             </td>
                         </tr>
                     @endforeach

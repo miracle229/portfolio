@@ -15,9 +15,9 @@
                              <li><a href="{{ route('about') }}">About Us</a></li>
                              <li><a href="{{ route('services') }}">Services</a></li>
                              <li><a href="{{ route('skills') }}">Skills</a></li>
-                             <li><a href="{{ route('testimonial') }}">Testimonial</a></li>
+                             <li><a href="{{ route('testimonial.index') }}">Testimonial</a></li>
                              <li><a href="{{ route('portfolio') }}">Portfolio</a></li>
-                             <li><a href="{{ route('contact') }}">Contact Us</a></li>
+                             <li><a href="{{ route('contact.index') }}">Contact Us</a></li>
                          </ul>
                      </div>
                  </div>

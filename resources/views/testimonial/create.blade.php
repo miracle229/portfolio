@@ -4,7 +4,7 @@
 <section class="about-us">
     <div class="row no-margin">
         <div  class="col-sm-6 cop-ck mx-auto">
-            <form action="{{ route('ad_testimonial.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('testimonial.store') }}" method="POST" enctype="multipart/form-data">
                 <h2 >ADD TESTIMONIAL</h2>
                  @csrf
                 <div class="row cf-ro">
