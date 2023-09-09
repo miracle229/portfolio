@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\Blog;
+use App\Models\Image;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::all();
-        return view('contact.index', compact('contacts'));
+        $blogs = Blog::all();
+        return view('blog.index', compact('blogs'));
     }
 
     /**
@@ -25,7 +27,8 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contact.create');
+        $categories = Categorie::all();
+        return view('blog.create', compact('categories'));
     }
 
     /**
@@ -36,22 +39,24 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        $image = Image::create([
+            'path' => 'public/vJVySfahqgW10ssdRuYwpcfa11xbwLrar1TQzci5.jpg'
+       ]);
+ 
         $request->validate([
-            'name' => ['required', 'min:3', 'string'],
-            'mail' => ['required','email','unique:contacts'],
-            'tel' => ['required'],
-            'message' => 'nullable'
+            'title' => ['required', 'min:3', 'string'],
+            'description' => ['required', 'min:3', 'string'],
+            'category_id' => ['required']
         ]);
     
-        $contact = Contact::create([
-            'name'=>$request->name,
-            'email'=>$request->mail,
-            'phone'=>$request->tel,
-            'message'=>$request->message
+        $blog = Blog::create([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'category_id'=>$request->categorie,
+            'image_id' => $image->id
         ]);
     
-        return redirect()->route('contact.index');
-       // return view('contact.create', compact('contact'));
+        return redirect()->route('blog.index');
     }
 
     /**
@@ -96,7 +101,6 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact = Contact::destroy($id);
-        $contact->delete();
+        //
     }
 }

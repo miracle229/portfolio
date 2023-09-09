@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::all();
-        return view('contact.index', compact('contacts'));
+        $categories = Categorie::all();
+        return view('categorie.index', compact('categories'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contact.create');
+        return view('categorie.create');
     }
 
     /**
@@ -37,21 +37,14 @@ class ContactController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'min:3', 'string'],
-            'mail' => ['required','email','unique:contacts'],
-            'tel' => ['required'],
-            'message' => 'nullable'
+            'title' => ['required', 'min:3', 'string','unique:categories']
         ]);
     
-        $contact = Contact::create([
-            'name'=>$request->name,
-            'email'=>$request->mail,
-            'phone'=>$request->tel,
-            'message'=>$request->message
+        $categorie = Categorie::create([
+            'title'=>$request->title,
         ]);
     
-        return redirect()->route('contact.index');
-       // return view('contact.create', compact('contact'));
+        return redirect()->route('categorie.index');
     }
 
     /**
@@ -96,7 +89,6 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact = Contact::destroy($id);
-        $contact->delete();
+        //
     }
 }

@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\TestimonialController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Models\Contact;
+use Illuminate\Http\Request;
 use App\Models\Ad_testimonial;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\TestimonialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +37,14 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 //return redirect()->route('home');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+//Route::get('/categorie', [CategorieController::class, 'index'])->name('categorie.index');
+
 
 Route::resource('testimonial', TestimonialController::class);
+
+Route::resource('blog', BlogController::class);
+
+Route::resource('categorie', CategorieController::class);
 
 
 
